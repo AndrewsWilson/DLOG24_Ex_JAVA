@@ -1,18 +1,18 @@
 package jeux;
-public class Sort {
-    private String nom = "Nova De Givre";
+public class Weapon {
+    private String nom = "Masse";
     private String degats = "8-10";
 
 
     //--------------------Degats-------------------
     //->GETTER<-
-    public String getDegats(){
+    public String getDegatsArme(){
         return this.degats;
     }
 
-    //--------------------Sort-------------------
+    //--------------------Nom-------------------
     //->GETTER<-
-    public String getNomSort(){
+    public String getNomArme(){
         return this.nom;
     }
 }
