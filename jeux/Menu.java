@@ -7,43 +7,17 @@ import java.util.Scanner;
 
 public class Menu {
     public void start() {
-        String specialization;
-        List<Warrior> warriorCharactersContainer = new ArrayList<>();
-        List<Wizzard> wizzardCharactersContainer = new ArrayList<>();
+        String specialization ="";
         String valueUser = "";
 
-
-
-        System.out.println("Welcome to the game !");
-        // -> BOUCLE TANTQUE EXIT = 0<-
         while(valueUser != "c"){
-            System.out.println("Create new char PRESS : a \nModify character - PRESS : b \nExit - PRESS : c");
+            System.out.println("Welcome to the game !\nCreate new char PRESS : a\n Exit PRESS C");
             valueUser = inputString();
-
             switch (valueUser) {
                 case "a":
                     System.out.println("Choose class :\n- warrior \n- wizzard");
                     specialization = inputString();
-                    switch (specialization) {
-                        case "warrior":
-                            Warrior warrior = createWarrior(specialization);
-                            warriorCharactersContainer.add(warrior);
-                            System.out.println("Congratulation ! new character have been create !");
-                            getWarriorInfos(specialization, warrior);
-                            break;
-                        case "wizzard":
-                            Wizzard wizzard = CreateWizzard(specialization);
-                            wizzardCharactersContainer.add(wizzard);
-                            System.out.println("Congratulation ! new character have been create !");
-                            getWizzardInfos(specialization, wizzard);
-                            break;
-                        default:
-                            System.out.println("invalid choice");
-                            break;
-                    };
-                    break;
-                case "b":
-                    System.out.println("Modification personnage ");
+                    ChoiceClassMenu(specialization);
                     break;
                 case "c":
                     valueUser= "c";
@@ -53,24 +27,48 @@ public class Menu {
                     System.out.println("Invalid choice");;
                     break;
             }
-
         }
-
     }
+
+
+
+
+
+
+
+
+    private void ChoiceClassMenu(String specialization) {
+        switch (specialization) {
+            case "warrior":
+                warriorMenu(specialization);
+                break;
+            case "wizzard":
+                CreateWizzard(specialization);
+                break;
+            default:
+                System.out.println("invalid choice");
+                break;
+        }
+        ;
+    }
+
     public Warrior createWarrior(String specialization) {
         int life;
         int attackPower;
-        String name;
+
         System.out.println("Character name : ");
-        name = inputString();
+        String name = inputString();
         System.out.println("Choose HP quantity (5-10) : ");
         life = Integer.parseInt(inputString());
-
         System.out.println("Choose Attack power (5-10) : ");
         attackPower = Integer.parseInt(inputString());
 
+
         Weapon weapon = new Weapon();
         Warrior warrior = new  Warrior(name, weapon, life,attackPower );
+        System.out.println("Congratulation Warrior has been created ");
+
+
         return warrior;
     }
 
@@ -78,19 +76,106 @@ public class Menu {
         int life;
         int attackPower;
         String name;
-        System.out.println("Character name : ");
-        name = inputString();
-        System.out.println("Choose HP quantity (3-6) : ");
-        life = Integer.parseInt(inputString());
 
-        System.out.println("Choose Attack power (8-15) : ");
+
+        name = inputString();
+        System.out.println("Character name : ");
+        life = Integer.parseInt(inputString());
+        System.out.println("Choose HP quantity (3-6) : ");
         attackPower = Integer.parseInt(inputString());
+        System.out.println("Choose Attack power (8-15) : ");
 
         Spell spell = new Spell();
         Wizzard wizzard = new Wizzard(name, spell, life, attackPower);
+        System.out.println("Congratulation Wizzard has been created ");
 
         return wizzard;
     }
+
+    public void warriorMenu(String specialization){
+        Warrior warrior = createWarrior(specialization);
+        System.out.println("Warrior menu : \n");
+        String choiceUser;
+        System.out.println("a - modify character\n b- Display information \nc- exite Warrior menu");
+        choiceUser = inputString();
+
+        warriorMenuList(specialization, choiceUser, warrior);
+
+    }
+
+    private void warriorMenuList(String specialization, String choiceUser, Warrior warrior) {
+        switch (choiceUser) {
+            case "a":
+                warriorSetting(warrior);
+                break;
+            case "b":
+                getWarriorInfos(specialization, warrior);
+                break;
+            case "c":
+                break;
+            default:
+                System.out.println("invalid choice");
+                break;
+        }
+        ;
+    }
+
+    private void warriorSetting(Warrior warrior) {
+        String name;
+        int life;
+        int forceAttack;
+        System.out.println("New name : ");
+        name = inputString();
+        System.out.println("New life level: ");
+        life = Integer.parseInt(inputString());
+        System.out.println("New life level: ");
+        forceAttack = Integer.parseInt(inputString());
+        warrior.setName(name);
+        warrior.setLife(life);
+        warrior.setForceAttack(forceAttack);
+    }
+
+    public void wizzardMenu(String specialization){
+        Wizzard wizzard = CreateWizzard(specialization);
+        System.out.println("Wizzard menu : \n");
+        String choiceUser = "";
+        System.out.println("a - Modify character\n b - Display information \nc- exite Wizzard menu");
+        wizzardMenuList(specialization, choiceUser, wizzard);
+
+    }
+
+    private void wizzardMenuList(String specialization, String choiceUser, Wizzard wizzard) {
+        switch (choiceUser) {
+            case "a":
+                wizzardSetting(wizzard);
+                break;
+            case "b":
+                getWizzardInfos(specialization, wizzard);
+                break;
+            case "c":
+                break;
+            default:
+                System.out.println("invalid choice");
+                break;
+        }
+        ;
+    }
+
+    private void wizzardSetting(Wizzard wizzard) {
+        String name;
+        int life;
+        int forceAttack;
+        System.out.println("New name : ");
+        name = inputString();
+        System.out.println("New life level: ");
+        life = Integer.parseInt(inputString());
+        System.out.println("New life level: ");
+        forceAttack = Integer.parseInt(inputString());
+        wizzard.setName(name);
+        wizzard.setLife(life);
+        wizzard.setForceAttack(forceAttack);
+    }
+
 
     public void getWarriorInfos(String specialization, Warrior warrior){
         System.out.println("current character info : \n"
@@ -110,6 +195,9 @@ public class Menu {
                 +"HP : "+ wizzard.getLife() + "\n"
                 +"Force Attack : "+ wizzard.getForceAttack());
     }
+
+
+
 
     public String inputString(){
         Scanner clavier = new Scanner(System.in);
