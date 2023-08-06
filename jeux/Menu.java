@@ -31,19 +31,13 @@ public class Menu {
     }
 
 
-
-
-
-
-
-
     private void ChoiceClassMenu(String specialization) {
         switch (specialization) {
             case "warrior":
                 warriorMenu(specialization);
                 break;
             case "wizzard":
-                CreateWizzard(specialization);
+                wizzardMenu(specialization);
                 break;
             default:
                 System.out.println("invalid choice");
@@ -96,7 +90,7 @@ public class Menu {
         Warrior warrior = createWarrior(specialization);
         System.out.println("Warrior menu : \n");
         String choiceUser;
-        System.out.println("a - modify character\n b- Display information \nc- exite Warrior menu");
+        System.out.println("a - modify character\n b- Display information \nc- start game \n d- exit Warrior menu");
         choiceUser = inputString();
 
         warriorMenuList(specialization, choiceUser, warrior);
@@ -112,6 +106,9 @@ public class Menu {
                 getWarriorInfos(specialization, warrior);
                 break;
             case "c":
+                WarriorGame play = new WarriorGame();
+                play.startGame();
+            case "d":
                 break;
             default:
                 System.out.println("invalid choice");
@@ -139,7 +136,7 @@ public class Menu {
         Wizzard wizzard = CreateWizzard(specialization);
         System.out.println("Wizzard menu : \n");
         String choiceUser = "";
-        System.out.println("a - Modify character\n b - Display information \nc- exite Wizzard menu");
+        System.out.println("a - modify character\n b- Display information \nc- start game \n d- exit Warrior menu");
         wizzardMenuList(specialization, choiceUser, wizzard);
 
     }
@@ -176,7 +173,6 @@ public class Menu {
         wizzard.setForceAttack(forceAttack);
     }
 
-
     public void getWarriorInfos(String specialization, Warrior warrior){
         System.out.println("current character info : \n"
                 +"Spécialization : "+specialization+"\n"
@@ -196,11 +192,17 @@ public class Menu {
                 +"Force Attack : "+ wizzard.getForceAttack());
     }
 
-
-
-
     public String inputString(){
         Scanner clavier = new Scanner(System.in);
         return clavier.nextLine();
     }
+
+    public void startGameWizzard(Wizzard wizzard){
+
+    }
+
+    public void startGameWarrior(Warrior warrior){
+
+    }
 }
+
