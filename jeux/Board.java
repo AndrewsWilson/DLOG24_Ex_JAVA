@@ -1,18 +1,19 @@
 package jeux;
 import java.util.Scanner;
 
-public class WarriorGame {
-    private int nbCase = 64;
-    
-    public WarriorGame() {}
+public class Board {
+    private int nbCase;
 
+    public Board(int nbCases) {
+        this.nbCase = nbCases;
+    }
 
     public void startGame(){
         System.out.println("StartGame");
-        Game();
+        boardGame();
     }
 
-    private void Game() {
+    private void boardGame() {
         String []gameBoard = GenerateGameBoard(nbCase);
         int playerPosition =0;
         gameBoard[playerPosition] = "Warrior";
@@ -25,6 +26,7 @@ public class WarriorGame {
 
             while(!choicePlayer.equals("a")){
                 System.out.println("Wrong choice -> Roll dice press A");
+                choicePlayer = inputString();
             }
 
             int dice = rollDice();
@@ -34,23 +36,22 @@ public class WarriorGame {
             DisplayBoard(gameBoard);
         }
 
-        if(playerPosition == nbCase){
-            System.out.println("Congratulation you have finish the game !");
-        }
+            System.out.println("=========================================\n-> !!!Congratulation you have finish the game!!! <-\n=========================================\n");
+
     }
 
     private String[] showPlayerPosition(int playerPosition) {
         String[] gameBoard;
         gameBoard = GenerateGameBoard(nbCase);
-        gameBoard[playerPosition] = "[[WARRIOR]]";
+        gameBoard[playerPosition] = "[[PLAYER]]";
         return gameBoard;
     }
 
     private int movePlayer(int playerPosition, int dice, String[] gameBoard) {
         playerPosition += dice;
 
-        if(playerPosition > gameBoard.length){
-            playerPosition = gameBoard.length;
+        if(playerPosition > gameBoard.length-1){
+            playerPosition = gameBoard.length-1;
         }
         return playerPosition;
     }
