@@ -1,48 +1,11 @@
 package jeux;
-public class Warrior {
-    private String name;
-    private String defense = "Bouclier";
-    private int life ;
-    private int forceAttack;
+
+public class Warrior extends Character{
     private Weapon weapon;
 
-    public  Warrior(String characterName, Weapon characterWeapon, int characterLife, int characterForceAttack) {
-        this.name = characterName;
+    public  Warrior(String characterName, int characterLife, int characterForceAttack, Weapon characterWeapon) {
+        super(characterName, characterLife, characterForceAttack, "shield");
         this.weapon = characterWeapon;
-        this.life = characterLife;
-        this.forceAttack = characterForceAttack;
-    }
-
-
-
-    //-----------------NOM-------------------
-    //->GETTER<-
-    public String getName(){
-        return this.name;
-    }
-    //->SETTER<-
-    public String setName(String name){
-        return this.name = name;
-    }
-
-    //------------------VIE----------------------
-
-    //->GETTER<-
-    public int getLife(){
-        return this.life;
-    }
-    //->SETTER<-
-    public int setLife(int characterLife){
-        return this.life = characterLife;
-    }
-
-    //--------------------ATTAQUE--------------------
-    //->GETTER<-
-    public int getForceAttack(){
-        return this.forceAttack;
-    }
-    public int setForceAttack(int characterForceAttack){
-        return this.forceAttack = characterForceAttack;
     }
 
     //--------------------Arme--------------------
@@ -50,6 +13,9 @@ public class Warrior {
     public String getArme(){
         return this.weapon.getNomArme();
     }
-}
 
+    public String toString(){
+        return super.toString()+ "Weapon : " + getArme() + "}";
+    }
+}
 

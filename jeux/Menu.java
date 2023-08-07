@@ -24,12 +24,11 @@ public class Menu {
                     System.out.println("Fin de partie à bientot !");
                     break;
                 default:
-                    System.out.println("Invalid choice");;
+                    System.out.println("Invalid choice");
                     break;
             }
         }
     }
-
 
     public void ChoiceClassMenu(String specialization) {
         switch (specialization) {
@@ -55,7 +54,7 @@ public class Menu {
 
 
         Weapon weapon = new Weapon();
-        Warrior warrior = new  Warrior(name, weapon, life,attackPower );
+        Warrior warrior = new  Warrior(name, life, attackPower, weapon );
         System.out.println("Congratulation Warrior has been created ");
 
 
@@ -94,7 +93,7 @@ public class Menu {
                 warriorSetting(warrior);
                 break;
             case "b":
-                getWarriorInfos(specialization, warrior);
+                getWarriorInfos(warrior);
                 break;
             case "c":
                 System.out.println("Define the length of the board (0-64)");
@@ -157,7 +156,7 @@ public class Menu {
                 wizzardSetting(wizzard);
                 break;
             case "b":
-                getWizzardInfos(specialization, wizzard);
+                getWizzardInfos(wizzard);
                 break;
             case "c":
                 System.out.println("Define the length of the board (0-64)");
@@ -199,23 +198,12 @@ public class Menu {
         wizzard.setForceAttack(forceAttack);
     }
 
-    public void getWarriorInfos(String specialization, Warrior warrior){
-        System.out.println("current character info : \n"
-                +"Spécialization : "+specialization+"\n"
-                +"Name : "+warrior.getName()+"\n"
-                +"Weapon : "+warrior.getArme()+"\n"
-                +"HP : "+warrior.getLife()+"\n"
-                +"Force Attack : "+warrior.getForceAttack()
-        );
+    public void getWarriorInfos(Warrior warrior){
+        System.out.println(warrior.toString());
     }
 
-    public void getWizzardInfos(String specialization, Wizzard wizzard){
-        System.out.println("current character info : \n"
-                +"Spécialization : "+ specialization + "\n"
-                +"Name : "+ wizzard.getName() + "\n"
-                +"Spell : "+ wizzard.getSort() + "\n"
-                +"HP : "+ wizzard.getLife() + "\n"
-                +"Force Attack : "+ wizzard.getForceAttack());
+    public void getWizzardInfos(Wizzard wizzard){
+           System.out.println(wizzard.toString());
     }
 
     public String inputString(){
@@ -227,13 +215,6 @@ public class Menu {
         Scanner clavier = new Scanner(System.in);
         return clavier.nextInt();
     }
-
-    public void startGameWizzard(Wizzard wizzard){
-
-    }
-
-    public void startGameWarrior(Warrior warrior){
-
-    }
 }
+
 
