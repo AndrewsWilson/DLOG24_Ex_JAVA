@@ -1,20 +1,26 @@
 package fr.ecolenum.dd.character;
 
 public class Spell {
-    private String nom = "Nova De Givre";
-    private String degats = "8-10";
+    private String name;
+    private String damage;
+
+
+    public Spell (){
+        this.name = "masse";
+        this.damage = "8-10";
+    }
 
 
     //--------------------Degats-------------------
     //->GETTER<-
-    public String getDegats(){
-        return this.degats;
+    public String getDamageSpell(){
+        return this.damage;
     }
 
     //--------------------Sort-------------------
     //->GETTER<-
-    public String getNomSort(){
-        return this.nom;
+    public String getNameSpell(){
+        return this.name;
     }
 }
 

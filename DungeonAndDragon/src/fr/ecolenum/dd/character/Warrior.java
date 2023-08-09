@@ -8,10 +8,15 @@ public class Warrior extends Character {
         this.weapon = characterWeapon;
     }
 
+    public  Warrior() {
+        super();
+        this.weapon = new Weapon();
+    }
+
     //--------------------Arme--------------------
     //->GETTER<-
     public String getArme(){
-        return this.weapon.getNomArme();
+        return this.weapon.getNameWeapon();
     }
 
     public String toString(){

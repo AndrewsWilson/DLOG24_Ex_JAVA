@@ -1,20 +1,24 @@
 package fr.ecolenum.dd.character;
 
 public class Weapon {
-    private String nom = "Masse";
-    private String degats = "8-10";
+    private String name;
+    private String damage;
 
+    public Weapon (){
+        this.name = "masse";
+        this.damage = "8-10";
+    }
 
     //--------------------Degats-------------------
     //->GETTER<-
-    public String getDegatsArme(){
-        return this.degats;
+    public String getDamageWeapon(){
+        return this.damage;
     }
 
     //--------------------Nom-------------------
     //->GETTER<-
-    public String getNomArme(){
-        return this.nom;
+    public String getNameWeapon(){
+        return this.name;
     }
 }
 

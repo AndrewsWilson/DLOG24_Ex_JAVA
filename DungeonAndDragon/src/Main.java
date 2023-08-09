@@ -1,8 +1,9 @@
+import fr.ecolenum.dd.game.Game;
 import fr.ecolenum.dd.menu.Menu;
 
 public class Main {
     public static void main(String[] args) {
-        Menu menu= new Menu();
-        menu.start();
+        Game game = new Game();
+        game.startGame();
     }
 }

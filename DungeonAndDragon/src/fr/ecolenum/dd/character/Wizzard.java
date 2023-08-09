@@ -12,7 +12,7 @@ public class Wizzard extends Character {
     //--------------------WEAPON--------------------
     //->GETTER<-
     public String getSpell(){
-        return this.spell.getNomSort();
+        return this.spell.getNameSpell();
     }
     public String toString(){
         return super.toString() +"fr.ecolenum.dd.character.Spell :" + getSpell() + "}";

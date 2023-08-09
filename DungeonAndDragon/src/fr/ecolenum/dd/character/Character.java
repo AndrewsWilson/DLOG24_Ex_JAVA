@@ -20,7 +20,14 @@ public abstract class Character {
         this.max_Life = 150;
         this.max_forceAttack = 20;
     }
-
+    public  Character() {
+        this.name = "DefaultCharacter";
+        this.life = 5;
+        this.forceAttack = 5;
+        this.defense = "Shield";
+        this.max_Life = 150;
+        this.max_forceAttack = 20;
+    }
     public String getName(){
         return this.name;
     }

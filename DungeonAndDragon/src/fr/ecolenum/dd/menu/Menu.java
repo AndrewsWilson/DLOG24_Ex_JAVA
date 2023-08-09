@@ -2,48 +2,66 @@ package fr.ecolenum.dd.menu;
 
 import fr.ecolenum.dd.character.*;
 import fr.ecolenum.dd.character.Character;
-import fr.ecolenum.dd.game.Board;
+import fr.ecolenum.dd.game.Game;
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.Scanner;
 
 
 public class Menu {
 
-    public void start() {
-        String specialization ="";
-        String valueUser = "";
-        while(valueUser != "c"){
-            System.out.println("Welcome to the game !\nCreate new char PRESS : a\nExit PRESS C");
+    public String start() {
+        String specialization;
+        System.out.println("Welcome to the game !\nSTART GAME PRESS A\nEXIST GAME PRESS B");
+        String valueUser = inputString();
+
+        switch (valueUser) {
+            case "a":
+                break;
+            case "b":
+                System.out.println("END GAME SEE YOU SOON ... ! ");
+        }
+
+        return valueUser;
+    }
+
+
+
+
+
+    public String WantToCreateCharacter(){
+        System.out.println("\nCreate Character PRESS A \n Start game B\nExit PRESS C");
+        String valueUser = inputString();
+
+        while(!valueUser.equals("a") && !valueUser.equals("b") && !valueUser.equals("c")){
+            System.out.println("\nBAD CHOICE : Create Character PRESS A \n Start game B\nExit PRESS C");
             valueUser = inputString();
-            switch (valueUser) {
-                case "a":
-                    System.out.println("Choose class :\n- warrior \n- wizzard");
-                    specialization = inputString();
-                    ChoiceClassMenu(specialization);
-                    break;
-                case "c":
-                    valueUser= "c";
-                    System.out.println("Fin de partie à bientot !");
-                    break;
-                default:
-                    System.out.println("Invalid choice");
-                    break;
-            }
+        }
+
+        if(valueUser.equals("a")){
+            return "a";
+        } else if (valueUser.equals("b")) {
+            return "b";
+        } else {
+            System.out.println("END GAME SEE YOU SOON");
+            return "c" ;
         }
     }
 
-    public void ChoiceClassMenu(String specialization) {
-        switch (specialization) {
-            case "warrior":
-                characterMenu(specialization);
-                break;
-            case "wizzard":
-                characterMenu(specialization);
-                break;
-            default:
-                System.out.println("invalid choice");
-                break;
-        };
+
+    public Character ChoiceClassMenu() {
+        System.out.println("Choose specialisation\n- WARRIOR\n- WIZZARD");
+        String specialization = inputString();
+        while(!specialization.equals("warrior")&&!specialization.equals("wizzard")){
+            System.out.println("Error chose warrior OR wizzard please");
+            specialization = inputString();
+        }
+
+        if(specialization.equals("warrior")){
+            return createWarrior();
+        } else {
+            return CreateWizzard();
+        }
     }
 
     public Character createWarrior() {
@@ -83,7 +101,7 @@ public class Menu {
         System.out.println(character.toString());
     }
 
-    private void characterSetting(Character character) {
+    public void characterSetting(Character character) {
         String name;
         int life;
         int forceAttack;
@@ -98,67 +116,18 @@ public class Menu {
         character.setForceAttack(forceAttack);
     }
 
-    public void characterMenu(String specialization){
-        System.out.println();
-        switch (specialization){
-            case "wizzard" :
-               Character wizzard = CreateWizzard();
-               characterMenuList(wizzard);
-                break;
-            case "warrior" :
-                Character warrior = createWarrior();
-                characterMenuList(warrior);
-                break;
-            default:
-                System.out.println("Invalid choice");
-                break;
-        }
 
-    }
-
-    private void characterMenuList( Character character) {
-
+    public String characterMenuList(Character character) {
         System.out.println("\nmenu : \na - modify character\nb- show information \nc- start game \nd- Exit character menu");
-        String choiceUser;
-        choiceUser = inputString();
+        return inputString();
+    }
 
-        switch (choiceUser) {
-            case "a":
-                characterSetting(character);
-                break;
-            case "b":
-                getCharacterInfos(character);
-                break;
-            case "c":
-                while(choiceUser.equals("c")){
-                    System.out.println("Define the length of the board (0-64)");
-                    int nbCases = inputInt();
-                    Board board = new Board(nbCases);
-                    board.startGame();
-                    System.out.println(" \nc - Restart \nv- Exit");
-                    choiceUser = inputString();
-                }
-                break;
-            case "d":
-                break;
-            default:
-                System.out.println("invalid choice");
-                break;
-        }
+    public int chooseNbOfCase() {
+        System.out.println("Define the length of the board (0-64)");
+        return inputInt();
     }
 
 
-    private String ChoiceUserString() {
-        String choiceUser;
-        choiceUser = inputString();
-        return choiceUser;
-    }
-
-    private int ChoiceUserInt() {
-        int choiceUser;
-        choiceUser = inputInt();
-        return choiceUser;
-    }
     public String inputString(){
         Scanner clavier = new Scanner(System.in);
         return clavier.nextLine();
