@@ -21,16 +21,19 @@ public class Menu {
             case "b":
                 System.out.println("END GAME SEE YOU SOON ... ! ");
         }
+        return valueUser;
+    }
 
+    public String askUserWantToReplayOrExit() {
+        String valueUser;
+        System.out.println("\nCharacter game menu \nc - Restart \ne- Back to character Game Menu");
+        valueUser = inputString();
         return valueUser;
     }
 
 
-
-
-
     public String WantToCreateCharacter(){
-        System.out.println("\nCreate Character PRESS A \n Start game B\nExit PRESS C");
+        System.out.println("\nCreate Character PRESS : A \n Start game : B\nExit PRESS : C");
         String valueUser = inputString();
 
         while(!valueUser.equals("a") && !valueUser.equals("b") && !valueUser.equals("c")){
@@ -49,39 +52,22 @@ public class Menu {
     }
 
 
-    public Character ChoiceClassMenu() {
+    public Character createCharacter() {
         System.out.println("Choose specialisation\n- WARRIOR\n- WIZZARD");
-        String specialization = inputString();
-        while(!specialization.equals("warrior")&&!specialization.equals("wizzard")){
-            System.out.println("Error chose warrior OR wizzard please");
-            specialization = inputString();
-        }
+        String TypeOfCharacter = inputString();
 
-        if(specialization.equals("warrior")){
-            return createWarrior();
+        if(TypeOfCharacter.equals("warrior")){
+            Character warrior = createWarrior();
+            return warrior;
         } else {
-            return CreateWizzard();
+            Character wizzard = createWizzard();
+            return wizzard;
         }
+
+
     }
 
-    public Character createWarrior() {
-        System.out.println("fr.ecolenum.dd.character.Character name : ");
-        String name = inputString();
-        System.out.println("Choose HP quantity (5-10) : ");
-        int life = Integer.parseInt(inputString());
-        System.out.println("Choose Attack power (5-10) : ");
-        int attackPower = Integer.parseInt(inputString());
-
-
-        Weapon weapon = new Weapon();
-        Character warrior = new Warrior(name, life, attackPower, weapon );
-        System.out.println("Congratulation fr.ecolenum.dd.character.Warrior has been created ");
-
-
-        return warrior;
-    }
-
-    public Character CreateWizzard() {
+    private Character createWizzard() {
         System.out.println("fr.ecolenum.dd.character.Character name : ");
         String name = inputString();
         System.out.println("Choose HP quantity (3-6) : ");
@@ -93,15 +79,27 @@ public class Menu {
         Spell spell = new Spell();
         Character wizzard = new Wizzard(name, spell, life, attackPower);
         System.out.println("Congratulation fr.ecolenum.dd.character.Wizzard has been created ");
-
         return wizzard;
     }
 
-    public void getCharacterInfos(Character character){
+    private Character createWarrior() {
+        System.out.println("fr.ecolenum.dd.character.Character name : ");
+        String name = inputString();
+        System.out.println("Choose HP quantity (5-10) : ");
+        int life = Integer.parseInt(inputString());
+        System.out.println("Choose Attack power (5-10) : ");
+        int attackPower = Integer.parseInt(inputString());
+        Weapon weapon = new Weapon();
+        Character warrior = new Warrior(name, life, attackPower, weapon );
+        System.out.println("Congratulation fr.ecolenum.dd.character.Wizzard has been created ");
+        return warrior;
+    }
+
+    public void showCharacterStats(Character character){
         System.out.println(character.toString());
     }
 
-    public void characterSetting(Character character) {
+    public void changeCharacterStats(Character character) {
         String name;
         int life;
         int forceAttack;
@@ -117,12 +115,12 @@ public class Menu {
     }
 
 
-    public String characterMenuList(Character character) {
-        System.out.println("\nmenu : \na - modify character\nb- show information \nc- start game \nd- Exit character menu");
+    public String showCharacterGameMenu(){
+        System.out.println("\na - modify character\nb- show information \nc- start game \nd- Exit character menu");
         return inputString();
     }
 
-    public int chooseNbOfCase() {
+    public int chooseNbOfCaseOfBoard() {
         System.out.println("Define the length of the board (0-64)");
         return inputInt();
     }

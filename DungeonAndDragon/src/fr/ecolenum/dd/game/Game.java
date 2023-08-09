@@ -15,31 +15,33 @@ public class Game {
         this.menu = new Menu();
     }
 
-    public void startGame() {
-
+    public void startEngine() {
+        // <--- Menu Start or Exit game --->
         String valueUser;
-        // <--- Start or Exit game --->
         valueUser =  menu.start();
-
+        //<-- if use choose a[START GAME] b[EXIT PROGRAM]-->
         switch (valueUser){
-            //<-- if a START GAME-->
+
             case "a":
-                //<--- Create character OR Start game OR Exit--->
-              valueUser = menu.WantToCreateCharacter();
-                switch (valueUser){
-                    case "a":
-                        //<--- Create character + menu character + StartGame -->
-                        this.character = menu.ChoiceClassMenu();
-                        CharacterGameMenu();
-                        break;
-                    case "b" :
-                        //<--- Menu character + startGame --->
-                        this.character = new Warrior();
-                        CharacterGameMenu();
-                        break;
-                    default :
-                        //<--- exit --->
-                        break;
+                //<-- while User don't want Exit Main menu-->
+                while(!valueUser.equals("c")) {
+                    //<--- Menu a[Create character] OR [Start game] OR [Exit]--->
+                    valueUser = menu.WantToCreateCharacter();
+                    switch (valueUser) {
+                        case "a":
+                            //<--- Create character + menu character + StartGame -->
+                            this.character = menu.createCharacter();
+                            CharacterGameMenu();
+                            break;
+                        case "b":
+                            //<--- Menu character + startGame --->
+                            this.character = new Warrior();
+                            CharacterGameMenu();
+                            break;
+                        default:
+                            //<-- Exit game-->
+                            break;
+                    }
                 }
             break;
             case "b":
@@ -51,35 +53,35 @@ public class Game {
     }
 
     private void CharacterGameMenu() {
-        String valueUser = "a";
-        while(!valueUser.equals("d")){
-            valueUser = menu.characterMenuList(character);
-            switch (valueUser){
+        String ChoiceUser = "a";
+        //<-- while user don't want Exit characterGameMenu-->
+        while(!ChoiceUser.equals("d")){
+            ChoiceUser = menu.showCharacterGameMenu();
+            switch (ChoiceUser){
                 case "a":
-                    menu.characterSetting(character);
+                    menu.changeCharacterStats(character);
                     break;
                 case "b":
-                    menu.getCharacterInfos(character);
+                    menu.showCharacterStats(character);
                     break;
                 case "c":
-                    while(valueUser.equals("c")){
-                        int nbCases = menu.chooseNbOfCase();
-                        boardGame(nbCases);
-                        System.out.println("GAME menu \nc - Restart \ne- Exit");
-                        valueUser = inputString();
+                    while(ChoiceUser.equals("c")){
+                        int nbCases = menu.chooseNbOfCaseOfBoard();
+                        StartGame(nbCases);
+                        ChoiceUser = menu.askUserWantToReplayOrExit();
                     }
                     break;
                 case "d":
-                    System.out.println("d- Exit game menu");
+                    // <-- Exite character Game Menu -->
                     break;
                 default :
-                    System.out.println("Exit character  menu");
-                    valueUser = menu.characterMenuList(character);
+                    // <-- back to character game Menu -->
+                    break;
             }
         }
     }
 
-    public void boardGame(int nbCases)  {
+    public void StartGame(int nbCases)  {
         String []gameBoard = GenerateGameBoard(nbCases);
         int playerScore =0;
         gameBoard[playerScore] = "[[PLAYER]]";
