@@ -21,27 +21,11 @@ public class Game {
         valueUser =  menu.start();
         //<-- if use choose a[START GAME] b[EXIT PROGRAM]-->
         switch (valueUser){
-
             case "a":
                 //<-- while User don't want Exit Main menu-->
                 while(!valueUser.equals("c")) {
-                    //<--- Menu a[Create character] OR [Start game] OR [Exit]--->
-                    valueUser = menu.WantToCreateCharacter();
-                    switch (valueUser) {
-                        case "a":
-                            //<--- Create character + menu character + StartGame -->
-                            this.character = menu.createCharacter();
-                            CharacterGameMenu();
-                            break;
-                        case "b":
-                            //<--- Menu character + startGame --->
-                            this.character = new Warrior();
-                            CharacterGameMenu();
-                            break;
-                        default:
-                            //<-- Exit game-->
-                            break;
-                    }
+                    //<--- showMainMenu --->
+                    valueUser = showMainMenu();
                 }
             break;
             case "b":
@@ -50,6 +34,28 @@ public class Game {
                 System.out.println("WRONG CHOICE CHOOSE (A) OR (B) ");
                 break;
         }
+    }
+
+    private String showMainMenu() {
+        String valueUser;
+        valueUser = menu.mainMenu();
+        //<--- MainMenu Is a[Create character] OR b[Start game] OR c[Exit]--->
+        switch (valueUser) {
+            case "a":
+                //<--- Create character + menu character + StartGame -->
+                this.character = menu.createCharacter();
+                CharacterGameMenu();
+                break;
+            case "b":
+                //<--- Menu character + startGame --->
+                this.character = new Warrior();
+                CharacterGameMenu();
+                break;
+            default:
+                //<-- Exit game-->
+                break;
+        }
+        return valueUser;
     }
 
     private void CharacterGameMenu() {

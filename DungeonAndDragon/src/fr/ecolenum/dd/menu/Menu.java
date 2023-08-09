@@ -32,7 +32,7 @@ public class Menu {
     }
 
 
-    public String WantToCreateCharacter(){
+    public String mainMenu(){
         System.out.println("\nCreate Character PRESS : A \n Start game : B\nExit PRESS : C");
         String valueUser = inputString();
 
