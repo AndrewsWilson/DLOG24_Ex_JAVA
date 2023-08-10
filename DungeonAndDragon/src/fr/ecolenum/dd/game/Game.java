@@ -1,5 +1,9 @@
 package fr.ecolenum.dd.game;
 
+import Dice.Dice8Face;
+import Dice.DiceCanBeRoll;
+import Dice.NormalDiceX2;
+import Dice.PipiedDice;
 import fr.ecolenum.dd.character.Character;
 import fr.ecolenum.dd.character.Warrior;
 import fr.ecolenum.dd.menu.Menu;
@@ -90,6 +94,7 @@ public class Game {
     public void StartGame(int nbCases)  {
         String []gameBoard = GenerateGameBoard(nbCases);
         int playerScore =0;
+        DiceCanBeRoll dice = new NormalDiceX2();
         gameBoard[playerScore] = "[[PLAYER]]";
         DisplayBoard(gameBoard);
 
@@ -102,7 +107,7 @@ public class Game {
                 choicePlayer = inputString();
             }
 
-            int dice = rollDice();
+            dice.rollTheDice();
             System.out.println("You roll the dice and get :" + dice);
             playerScore = calculePlayerScore(playerScore, dice);
 
@@ -137,8 +142,8 @@ public class Game {
         return gameBoard;
     }
 
-    public int calculePlayerScore(int playerScore, int dice) {
-        playerScore += dice;
+    public int calculePlayerScore(int playerScore, DiceCanBeRoll dice) {
+        playerScore += dice.rollTheDice();
         return playerScore;
     }
 
@@ -159,11 +164,7 @@ public class Game {
         return gameBoard;
     }
 
-    public int rollDice(){
-        int dice = 0;
-        dice = 1 + (int)(Math.random() * ((6 - 1) +1));
-        return dice;
-    }
+
 
     public String inputString(){
         Scanner clavier = new Scanner(System.in);
