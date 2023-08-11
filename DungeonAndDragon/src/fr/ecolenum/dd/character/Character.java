@@ -4,22 +4,21 @@ public abstract class Character {
     private String name;
     private   String defense;
     private  int life;
-
     private  int max_Life;
     private  int forceAttack;
-
     private  int max_forceAttack;
 
 
 
-    public  Character(String characterName, int characterLife, int characterForceAttack, String defenseCharacter) {
+    public  Character(String characterName, int characterLife, int characterForceAttack, String defenseCharacter, int maxCharacterforceAttack, int maxCharacterLife) {
         this.name = characterName;
         this.life = characterLife;
         this.forceAttack = characterForceAttack;
         this.defense = defenseCharacter;
-        this.max_Life = 150;
-        this.max_forceAttack = 20;
+        this.max_forceAttack = maxCharacterforceAttack;
+        this.max_Life = maxCharacterLife ;
     }
+
     public  Character() {
         this.name = "DefaultCharacter";
         this.life = 5;
@@ -44,8 +43,8 @@ public abstract class Character {
     public int getForceAttack(){
         return this.forceAttack;
     }
-    public int setForceAttack(int characterForceAttack){
-        return this.forceAttack = characterForceAttack;
+    public int setForceAttack(int weaponAttack){
+        return this.forceAttack += weaponAttack;
     }
     public String getDefense(){
         return this.defense;
@@ -59,6 +58,6 @@ public abstract class Character {
     }
 
     public String toString(){
-        return "{" +"Name :" + getName()+" "+"Life :"+getLife()+" "+"Attack :"+getForceAttack()+" " +"Defense:"+ getDefense() + "Max force attack"+ getMax_forceAttack() + "Max_Life"+ getMax_Life();
+        return "{ Name :" + getName()+" "+"Life :"+getLife()+" "+"Attack :"+getForceAttack()+" " +"Defense :"+ getDefense() + " }";
     }
 }

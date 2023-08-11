@@ -1,4 +1,4 @@
-package Dice;
+package fr.ecolenum.dd.Dice;
 
 public class Dice8Face implements DiceCanBeRoll{
     public int rollTheDice(){

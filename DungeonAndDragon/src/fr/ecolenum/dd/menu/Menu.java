@@ -1,9 +1,12 @@
 package fr.ecolenum.dd.menu;
 
+import fr.ecolenum.dd.Case.Spell.Lights;
+import fr.ecolenum.dd.Case.Weapon.Hammer;
+import fr.ecolenum.dd.Case.Weapon.Sword;
+import fr.ecolenum.dd.Case.Spell.Spell;
+import fr.ecolenum.dd.Case.Weapon.Weapon;
 import fr.ecolenum.dd.character.*;
 import fr.ecolenum.dd.character.Character;
-import fr.ecolenum.dd.game.Game;
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.Scanner;
 
@@ -76,7 +79,7 @@ public class Menu {
         int attackPower = Integer.parseInt(inputString());
 
 
-        Spell spell = new Spell();
+        Spell spell = new Lights(0);
         Character wizzard = new Wizzard(name, spell, life, attackPower);
         System.out.println("Congratulation fr.ecolenum.dd.character.Wizzard has been created ");
         return wizzard;
@@ -89,8 +92,9 @@ public class Menu {
         int life = Integer.parseInt(inputString());
         System.out.println("Choose Attack power (5-10) : ");
         int attackPower = Integer.parseInt(inputString());
-        Weapon weapon = new Weapon();
+        Weapon weapon = new Hammer(0);
         Character warrior = new Warrior(name, life, attackPower, weapon );
+        warrior.setForceAttack((warrior.getForceAttack() + weapon.getDamageWeapon()));
         System.out.println("Congratulation fr.ecolenum.dd.character.Wizzard has been created ");
         return warrior;
     }
