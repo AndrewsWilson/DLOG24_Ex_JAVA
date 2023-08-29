@@ -2,7 +2,6 @@ package fr.ecolenum.dd.menu;
 
 import fr.ecolenum.dd.Case.Spell.Lights;
 import fr.ecolenum.dd.Case.Weapon.Hammer;
-import fr.ecolenum.dd.Case.Weapon.Sword;
 import fr.ecolenum.dd.Case.Spell.Spell;
 import fr.ecolenum.dd.Case.Weapon.Weapon;
 import fr.ecolenum.dd.character.*;
@@ -36,11 +35,11 @@ public class Menu {
 
 
     public String mainMenu(){
-        System.out.println("\nCreate Character PRESS : A \n Start game : B\nExit PRESS : C");
+        System.out.println("\nCreate Character PRESS : A \nStart game : B \nChoose Character C\nExit PRESS : D");
         String valueUser = inputString();
 
-        while(!valueUser.equals("a") && !valueUser.equals("b") && !valueUser.equals("c")){
-            System.out.println("\nBAD CHOICE : Create Character PRESS A \n Start game B\nExit PRESS C");
+        while(!valueUser.equals("a") && !valueUser.equals("b") && !valueUser.equals("c") && !valueUser.equals("d")){
+            System.out.println("\nCreate Character PRESS : A \nStart game : B \nChoose Character C\nExit PRESS : D");
             valueUser = inputString();
         }
 
@@ -48,9 +47,11 @@ public class Menu {
             return "a";
         } else if (valueUser.equals("b")) {
             return "b";
+        } else if (valueUser.equals("c")) {
+            return "c";
         } else {
             System.out.println("END GAME SEE YOU SOON");
-            return "c" ;
+            return "d" ;
         }
     }
 
@@ -80,7 +81,7 @@ public class Menu {
 
 
         Spell spell = new Lights(0);
-        Character wizzard = new Wizzard(name, spell, life, attackPower);
+        Character wizzard = new Wizzard(name, attackPower, life);
         System.out.println("Congratulation fr.ecolenum.dd.character.Wizzard has been created ");
         return wizzard;
     }
@@ -93,7 +94,7 @@ public class Menu {
         System.out.println("Choose Attack power (5-10) : ");
         int attackPower = Integer.parseInt(inputString());
         Weapon weapon = new Hammer(0);
-        Character warrior = new Warrior(name, life, attackPower, weapon );
+        Character warrior = new Warrior(name, weapon );
         warrior.setForceAttack((warrior.getForceAttack() + weapon.getDamageWeapon()));
         System.out.println("Congratulation fr.ecolenum.dd.character.Wizzard has been created ");
         return warrior;
@@ -118,9 +119,8 @@ public class Menu {
         character.setForceAttack(forceAttack);
     }
 
-
     public String showCharacterGameMenu(){
-        System.out.println("\na - modify character\nb- show information \nc- start game \nd- Exit character menu");
+        System.out.println("\nA - Modify character\nB - Show information \nC - Start game \nD - Exit character menu");
         return inputString();
     }
 
@@ -128,7 +128,6 @@ public class Menu {
         System.out.println("Define the length of the board (0-64)");
         return inputInt();
     }
-
 
     public String inputString(){
         Scanner clavier = new Scanner(System.in);

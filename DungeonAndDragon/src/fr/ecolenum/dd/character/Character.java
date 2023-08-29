@@ -1,12 +1,13 @@
 package fr.ecolenum.dd.character;
 
 public abstract class Character {
+    public int getDamage;
     private String name;
-    private   String defense;
+    private final String defense;
     private  int life;
-    private  int max_Life;
+    private final int max_Life;
     private  int forceAttack;
-    private  int max_forceAttack;
+    private final int max_forceAttack;
 
 
 
@@ -37,14 +38,14 @@ public abstract class Character {
     public int getLife(){
         return this.life;
     }
-    public int setLife(int characterLife){
-        return this.life = characterLife;
+    public void setLife(int characterLife){
+        this.life = characterLife;
     }
     public int getForceAttack(){
         return this.forceAttack;
     }
-    public int setForceAttack(int weaponAttack){
-        return this.forceAttack += weaponAttack;
+    public void setForceAttack(int improvementFactor){
+        this.forceAttack = improvementFactor;
     }
     public String getDefense(){
         return this.defense;

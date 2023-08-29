@@ -5,16 +5,19 @@ import fr.ecolenum.dd.Case.Empty.Empty;
 import fr.ecolenum.dd.Case.Enemy.Dragon;
 import fr.ecolenum.dd.Case.Enemy.Ennemy;
 import fr.ecolenum.dd.Case.Enemy.Goblins;
+import fr.ecolenum.dd.Case.Spell.Spell;
 import fr.ecolenum.dd.Case.Weapon.Sword;
 import fr.ecolenum.dd.Case.Weapon.Weapon;
 import fr.ecolenum.dd.Case.potion.Potion;
 import fr.ecolenum.dd.Case.potion.SmallPotion;
+import fr.ecolenum.dd.DataBase.DataBaseMySql;
 import fr.ecolenum.dd.Dice.DiceCanBeRoll;
 import fr.ecolenum.dd.Dice.NormalDice;
 import fr.ecolenum.dd.Dice.NormalDiceX2;
 import fr.ecolenum.dd.Dice.PipiedDice;
 import fr.ecolenum.dd.character.Character;
 import fr.ecolenum.dd.character.Warrior;
+import fr.ecolenum.dd.character.Wizzard;
 import fr.ecolenum.dd.menu.Menu;
 
 import java.util.ArrayList;
@@ -27,7 +30,15 @@ public class Game {
     private List<Case> board;
 
 
-
+//  MODIFICATION ARMES WARRIOR DONE // DO IT FOR WIZZARD AND SPELL
+// PUT THE INTERACTION WITH USER INE MENU AND EXTRACT METHOD FOR CLEANING IT
+    // AFTER GENERATE TAB OF 10 INDEX  :
+        // POTION : SMALL / LARGE
+        // ENEMY : GOBELIN / WITCH / DRAGON
+        // SPELL : 1 / 2
+       // WEAPON : 1 / 2
+        // empty : 1
+    // AND AFTER GENERATE RANDOM TAB FROM THIS DATA
 
     public Game() {
         this.menu = new Menu();
@@ -61,12 +72,25 @@ public class Game {
         switch (valueUser) {
             case "a":
                 //<--- Create character + menu character + StartGame -->
-                this.character = menu.createCharacter();
+                character = menu.createCharacter();
                 CharacterGameMenu();
                 break;
             case "b":
                 //<--- Menu character + startGame --->
-                this.character = new Warrior();
+                character = new Warrior();
+                character.setForceAttack(5 + ((Warrior) character).getWeaponDamage());
+                CharacterGameMenu();
+                break;
+            case "c":
+                //<--- ShowCharacter --->
+                List<Character> charArray = new ArrayList<Character>();
+                DataBaseMySql database = new DataBaseMySql();
+                charArray = database.getHereos();
+                System.out.println(charArray + "\nChoose your characther : ");
+                for(int i = 0; i < charArray.size(); i++){
+                    System.out.println((i)+ " - " + charArray.get(i));
+                }
+                character = charArray.get(menu.inputInt());
                 CharacterGameMenu();
                 break;
             default:
@@ -135,7 +159,7 @@ public class Game {
         }
 
         dice.rollTheDice();
-        System.out.println("You roll the dice and get :" + dice);
+        System.out.println("You roll the dice and get :" + dice.rollTheDice());
         playerScore = calculePlayerScore(playerScore, dice);
 
 
@@ -149,32 +173,91 @@ public class Game {
         }
 
         if(board.get(playerScore) instanceof Ennemy){
-            System.out.println("An enemy is here !\n" + board.get(playerScore) + "\nYou start the Fight");
-            while( ((Ennemy) board.get(playerScore)).getLifeEnemy() > 0 && playerIsAlive(character)){
-                System.out.println(((Ennemy) board.get(playerScore)).getNameEnemy() + "He's attacking you receive" + ((Ennemy) board.get(playerScore)).getDamageEnemy());
+            System.out.println("An enemy is here !\n " + board.get(playerScore) + "\nYou start the Fight");
+            while(((Ennemy) board.get(playerScore)).getLifeEnemy() > 0 && playerIsAlive(character)){
+
+                System.out.println(((Ennemy) board.get(playerScore)).getNameEnemy() + " He's attacking you receive " + ((Ennemy) board.get(playerScore)).getDamageEnemy() + " damage");
                 character.setLife((character.getLife() - ((Ennemy) board.get(playerScore)).getDamageEnemy()));
-                System.out.println("Strike back ! PRESS 1");
-                String rep = inputString();
-                while(!rep.equals("1")){
-                    System.out.println("Bad choice for strike back ! PRESS 1");
-                    rep = inputString();
+
+                if(playerIsAlive(character)){
+                    System.out.println("Strike back ! PRESS 1");
+                    String rep = inputString();
+                    while(!rep.equals("1")){
+                        System.out.println("Bad choice for strike back ! PRESS 1");
+                        rep = inputString();
+                    }
+                    System.out.println("You attack the ennemy and made him " + character.getForceAttack() +" Damage !");
+                    ((Ennemy) board.get(playerScore)).setLifeEnemy(((Ennemy) board.get(playerScore)).getLifeEnemy() - character.getForceAttack());
+                } else {
+                    System.out.println("you die...");
                 }
-                System.out.println("You attack the ennemy and made him" + character.getForceAttack() +" Damage !");
-                ((Ennemy) board.get(playerScore)).setLifeEnemy(((Ennemy) board.get(playerScore)).getLifeEnemy() - character.getForceAttack());
-                System.out.println("Your life level : "+ character.getLife()+"\n The enemy life level :" + ((Ennemy) board.get(playerScore)).getLifeEnemy());
+
+               if(((Ennemy) board.get(playerScore)).getLifeEnemy() <= 0) {
+                   ((Ennemy) board.get(playerScore)).setLifeEnemy(0);
+                   System.out.println("The Enemy is dead");
+               }
+                System.out.println("Your life level : "+ character.getLife()+"HP"+"\nThe enemy life level : " + ((Ennemy) board.get(playerScore)).getLifeEnemy()+"HP");
             }
         } else if (board.get(playerScore) instanceof Potion) {
-            System.out.println("You find something !\n" + board.get(playerScore) + "You take it");
+            System.out.println("You find something !\n" + board.get(playerScore) + "\nThis is a potion !");
+
+            if(character.getLife()< character.getMax_Life()){
+                System.out.println("PRESS 1 TO USE IT OR 2 TO CONTINUE");
+                String askPlayerWantUsePotion = inputString();
+                while (!askPlayerWantUsePotion.equals("1") && !askPlayerWantUsePotion.equals("2")){
+                    System.out.println("wrong choice");
+                }
+
+                if(askPlayerWantUsePotion.equals("1")){
+                    if(character.getLife() + ((Potion) board.get(playerScore)).getHealingPotion() > character.getMax_Life()){
+                        character.setLife(character.getMax_Life());
+                    } else {
+                        character.setLife(character.getLife()+((Potion) board.get(playerScore)).getHealingPotion());
+                    }
+                } else {
+                    System.out.println("You put the potion down");
+                }
+                System.out.println("Your life level is now : "+ character.getLife() +"HP");
+            } else {
+                System.out.println("you already are full of life");
+            }
+
 
         } else if (board.get(playerScore) instanceof Weapon) {
-            System.out.println("You find something !\n" + board.get(playerScore) + "You take it");
+            if (character instanceof Warrior){
+                System.out.println("You find something !\n " + board.get(playerScore) + " You take it");
+                System.out.println("\nwould you like to equip it ?\n1 : YES\n2 : NO");
+                String equipWeaponOrNo = inputString();
+                if(equipWeaponOrNo.equals("1")){
+                    ((Warrior) character).setWeapon((Weapon) board.get(playerScore));
+                    character.setForceAttack(5 + ((Weapon) board.get(playerScore)).getDamageWeapon());
+                    System.out.println("Your power is now : " + character.getForceAttack());
+                } else {
+                    System.out.println("you put the weapon down");
+                }
+            } else {
+                System.out.println("This is not for you...");
+            }
+        } else if (board.get(playerScore) instanceof Spell) {
+            if (character instanceof Wizzard){
+                System.out.println("You find something !\n" + board.get(playerScore) + " You take it");
+                System.out.println("\nwould you like to equip it ?\n1 : YES\n2 : NO");
+                String equipSpellOrNo = inputString();
+                if(equipSpellOrNo.equals("1")){
+                    ((Warrior) character).setWeapon((Weapon) board.get(playerScore));
+                } else {
+                    System.out.println("you put the Spell down");
+                }
+            } else {
+                System.out.println("This is not for you...");
+            }
         } else {
             System.out.println(" there is nothing here.. \n" + board.get(playerScore) + "You can move on");
         }
         return playerScore;
     }
 
-    private static boolean playerIsAlive(Character character) {
+    private boolean playerIsAlive(Character character) {
         return character.getLife() > 0;
     }
 
