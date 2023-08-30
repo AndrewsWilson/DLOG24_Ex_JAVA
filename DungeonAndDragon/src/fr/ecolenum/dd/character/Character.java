@@ -1,5 +1,8 @@
 package fr.ecolenum.dd.character;
 
+/**
+ * This class concerne Character and cannot be Instancied you have to instance Warrior or Wizzard
+ */
 public abstract class Character {
     public int getDamage;
     private String name;
@@ -10,7 +13,15 @@ public abstract class Character {
     private final int max_forceAttack;
 
 
-
+    /**
+     * Default constructor character
+     * @param characterName the name of the character
+     * @param characterLife the life of the character
+     * @param characterForceAttack the ForceAttack
+     * @param defenseCharacter
+     * @param maxCharacterforceAttack
+     * @param maxCharacterLife
+     */
     public  Character(String characterName, int characterLife, int characterForceAttack, String defenseCharacter, int maxCharacterforceAttack, int maxCharacterLife) {
         this.name = characterName;
         this.life = characterLife;

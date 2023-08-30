@@ -11,6 +11,8 @@ import fr.ecolenum.dd.Case.Weapon.Weapon;
 import fr.ecolenum.dd.Case.potion.Potion;
 import fr.ecolenum.dd.Case.potion.SmallPotion;
 import fr.ecolenum.dd.DataBase.DataBaseMySql;
+import fr.ecolenum.dd.DataBase.DbRequest;
+import fr.ecolenum.dd.DataBase.DbRequest;
 import fr.ecolenum.dd.Dice.DiceCanBeRoll;
 import fr.ecolenum.dd.Dice.NormalDice;
 import fr.ecolenum.dd.Dice.NormalDiceX2;
@@ -20,9 +22,12 @@ import fr.ecolenum.dd.character.Warrior;
 import fr.ecolenum.dd.character.Wizzard;
 import fr.ecolenum.dd.menu.Menu;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import static fr.ecolenum.dd.DataBase.DataBaseMySql.getConnection;
 
 public class Game {
     private Menu menu;
@@ -83,9 +88,11 @@ public class Game {
                 break;
             case "c":
                 //<--- ShowCharacter --->
-                List<Character> charArray = new ArrayList<Character>();
-                DataBaseMySql database = new DataBaseMySql();
-                charArray = database.getHereos();
+
+                // Instanciation DbRequet
+                DbRequest dataRequest = new DbRequest();
+                // Stockage du retour de la méthode getHereos avec en paramètre l'objet Dbconnection
+                List<Character > charArray = dataRequest.getHereos();
                 System.out.println(charArray + "\nChoose your characther : ");
                 for(int i = 0; i < charArray.size(); i++){
                     System.out.println((i)+ " - " + charArray.get(i));

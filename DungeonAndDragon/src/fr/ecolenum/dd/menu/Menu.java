@@ -33,7 +33,6 @@ public class Menu {
         return valueUser;
     }
 
-
     public String mainMenu(){
         System.out.println("\nCreate Character PRESS : A \nStart game : B \nChoose Character C\nExit PRESS : D");
         String valueUser = inputString();
@@ -54,7 +53,6 @@ public class Menu {
             return "d" ;
         }
     }
-
 
     public Character createCharacter() {
         System.out.println("Choose specialisation\n- WARRIOR\n- WIZZARD");
