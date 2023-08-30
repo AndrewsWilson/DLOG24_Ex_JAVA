@@ -20,7 +20,7 @@ public class DbRequest {
             Statement stmt = conn.createStatement();
 
             //étape 2: execution de la requette SQL et stocage du resultat dans res de type ResultSet
-            ResultSet result = stmt.executeQuery("SELECT * FROM heroes");
+            ResultSet result = stmt.executeQuery("SELECT * FROM hero");
 
             //étape 3: stockage des données de la requette
             while(result.next()) {
@@ -34,7 +34,7 @@ public class DbRequest {
                         ).newInstance
                         (
                                 // Valeur des paramètres a attribuer dans le constructeur de l'instance crée
-                                result.getString("nom"),result.getInt("niveauvie"),result.getInt("niveauforce")
+                                result.getString("name"),result.getInt("life"),result.getInt("attack")
                         );
                 charArray.add(character);
             }
